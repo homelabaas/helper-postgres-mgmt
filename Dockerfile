@@ -1,10 +1,14 @@
-FROM alpine
+FROM alpine:edge
 
 RUN apk update && \
     apk upgrade && \
     apk --no-cache add git postgresql-client
 
-RUN wget https://dl.minio.io/client/mc/release/linux-amd64/mc --quiet && \
-    chmod +x mc
+WORKDIR /bin
 
-ENTRYPOINT [ "operation.sh" ]
+COPY ./mc .
+COPY ./operation.sh .
+RUN chmod +x /bin/operation.sh
+RUN chmod +x /bin/mc
+
+CMD [ "/bin/operation.sh" ]
