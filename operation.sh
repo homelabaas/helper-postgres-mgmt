@@ -12,7 +12,7 @@ case "$OPERATION" in
    ;;
  RESTORE)
    echo "Performing restore"
-   mc cp minio/$MINIO_BUCKET/pgsql_backup/$POSTGRES_ADDRESS/$POSTGRES_DB/backup.sql /tmp/out.sql
-   cat /tmp/out.sql | /usr/bin/psql -h ${target.address} -p ${target.port} -U ${target.user}
+   mc cp minio/$MINIO_BUCKET/$RESTORE_FILE /tmp/out.sql
+   cat /tmp/out.sql | /usr/bin/psql -h $POSTGRES_ADDRESS -p $POSTGRES_PORT -U $POSTGRES_USER
    ;;
 esac
